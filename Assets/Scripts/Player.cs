@@ -21,10 +21,39 @@ public class Player : MonoBehaviour
     {
         Vector2 inputVector = gameInput.GetInputVectorNormalised();
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-        transform.position += moveDir * movementSpeed * Time.deltaTime;
+        float moveDistance = movementSpeed * Time.deltaTime;
+
+        float playerSize = 0.7f;
+        float playerHeight = 2f;
+        bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerSize, moveDir, moveDistance);
+
+        if (canMove)
+        {
+            transform.position += moveDir * moveDistance;
+        }
+        else
+        {
+            //if player can move only in X
+            Vector3 moveDirX = new Vector3(moveDir.x, 0, 0);
+            canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerSize, moveDirX, moveDistance);
+
+            if (canMove)
+            {
+                transform.position += moveDirX * moveDistance;
+            }
+
+            //if player can move only in Z
+            Vector3 moveDirZ = new Vector3(0, 0, moveDir.z);
+            canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerSize, moveDirZ, moveDistance);
+
+            if (canMove)
+            {
+                transform.position += moveDirZ * moveDistance;
+            }
+        }
 
         float rotateSpeed = 10f;
-        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime* rotateSpeed);
+        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
 
         isWalking = (moveDir != Vector3.zero);
     }

@@ -15,7 +15,7 @@ public class SelectedCounterVisual : MonoBehaviour
 
     private void Player_OnSelectedCounter(object sender, Player.OnSelectedCounterEventArgs e)
     {
-        if(e.selectedCounter == selectedCounter)
+        if(e.selectedCounter != null && e.selectedCounter == selectedCounter)
         {
             Show();
         }

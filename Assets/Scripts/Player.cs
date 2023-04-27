@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     {
         if(selectedCounter != null)
         {
-            Debug.Log("Pressed Interact Key");
+            selectedCounter.Interact();
         }
     }
 

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SelectedCounterVisual : MonoBehaviour
 {
-    [SerializeField] private ClearCounter selectedCounter;
-    [SerializeField] private GameObject counterVisualObject;
+    [SerializeField] private BaseCounter selectedCounter;
+    [SerializeField] private GameObject[] counterVisualObjectsArray;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +27,17 @@ public class SelectedCounterVisual : MonoBehaviour
 
     private void Hide()
     {
-        counterVisualObject.SetActive(false);
+        foreach (var item in counterVisualObjectsArray)
+        {
+            item.SetActive(false);
+        }
     }
 
     private void Show()
     {
-        counterVisualObject.SetActive(true);
+        foreach (var item in counterVisualObjectsArray)
+        {
+            item.SetActive(true);
+        }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 {
-    [SerializeField] public Transform counterTop;
+    [SerializeField] private Transform counterTop;
     private KitchenObject kitchenObject;
 
     public virtual void Interact(Player player) { Debug.LogError("Called base counter"); }
